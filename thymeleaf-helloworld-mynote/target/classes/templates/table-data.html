@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<title>Home</title>
+
+     <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" 
+crossorigin="anonymous">
+</head>
+<body>
+				
+				<h2 th:text="#{app.title}">Table title</h2>
+				<a th:href = "@{/createNoteForm}" class="btn btn-primary">Create Note</a>
+				<table class= "table table-responsive table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Actions</th>
+							
+						
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="mynote :${notes}">
+							<td th:text="${mynote.title}"></td>
+							<td th:text="${mynote.note}"></td>
+							<td>
+								<a th:href="@{/deleteNote/{title}(title=${mynote.title})}" class="btn btn-primary">
+								<i>Delete</i>
+								</a> 
+								<a th:href="@{/updateNoteForm/{title}(title=${mynote.title})}" class="btn btn-primary">
+								<i>Update</i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+</body>
+</html>

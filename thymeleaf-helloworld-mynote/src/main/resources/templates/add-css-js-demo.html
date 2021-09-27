@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+	<title>Add CSS and JS to ThymeLeaf</title>
+	<link th:href ="@{/css/main.css}" rel="stylesheet">
+	<script type="text/javascript" th:src ="@{/js/actions.js}"></script>
+</head>
+<body>
+	<h2>Heading</h2>
+	<p> This is text on which we wwant to apply <strong>very special</strong>
+	styling.
+	</p>
+	<button type="button" th:onclick="demo()">Show Alert</button>
+</body>
+</html>
