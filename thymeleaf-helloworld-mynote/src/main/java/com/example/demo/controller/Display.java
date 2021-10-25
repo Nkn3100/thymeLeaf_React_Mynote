@@ -42,21 +42,21 @@ public class Display {
 	    	String name=dataService.editNote(data);
 	    	return "note with title "+name+" updated";
 	    }
-	    @DeleteMapping("/deleteNote/{title}")
-	    public String deleteData(@PathVariable String title) {
-	    	String a=dataService.deleteData(title);
-	    	return "The note with title "+a+" deleted";
+	    @DeleteMapping("/deleteNote/{number}")
+	    public String deleteData(@PathVariable Integer number) {
+	    	dataService.deleteData(number);
+	    	return "The note deleted";
 	    }
 
 	    @DeleteMapping("/deleteNote")
-	    public String deleteData1(@RequestBody String title) {
-	    	String a=dataService.deleteData1(title);
-	    	return "The note with title "+a+" deleted";
+	    public String deleteData1(@RequestBody Integer number) {
+	    	dataService.deleteData1(number);
+	    	return "The note deleted";
 	    }
-	    @GetMapping("/getNoteById/{title}")
-	    public Data getNoteById(@PathVariable String title){
+	    @GetMapping("/getNoteById/{number}")
+	    public Data getNoteById(@PathVariable Integer number){
 	    	
-	    	 return dataService.getNoteById(title);
+	    	 return dataService.getNoteById(number);
 	 		
 
 	    }

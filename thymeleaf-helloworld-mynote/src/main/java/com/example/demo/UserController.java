@@ -1,6 +1,9 @@
 package com.example.demo;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.entity.Data;
 import com.example.demo.repository.DataRepository;
 import com.example.demo.service.DataService;
+
 
 
 @Controller
@@ -44,15 +48,20 @@ public class UserController {
 		model.addAttribute("notes", dataRepo.findAll());
 		return "table-data";
 	}
-    @RequestMapping("/deleteNote/{title}")
-    public String deleteData(@PathVariable String title) {
-    	String a=dataService.deleteData(title);
+    @RequestMapping("/deleteNote/{number}")
+    public String deleteData(@PathVariable Integer number) {
+    	dataService.deleteData(number);
     	return "redirect:/";
     }
     @RequestMapping("/createNoteForm")
     public String createNoteForm(Model model) {
     	Data data =new Data();
     	model.addAttribute("mynote",data);
+    	List<String> types = Arrays.asList("Private","Public","Confidential","Highly Confidential");
+    	model.addAttribute("types", types);
+    	List<String> fields = Arrays.asList("Home","Work","Personal","Knowledge",
+    			"Philosophy","Others");
+    	model.addAttribute("fields", fields);
     	return "new_note";
     	
     }
@@ -62,10 +71,22 @@ public class UserController {
     	dataService.addNote(mynote);
     	return "redirect:/" ;
     }
-    @RequestMapping("/updateNoteForm/{title}")
-    public String updateNoteForm(@PathVariable String title, Model model) {
-    	Data mynote = dataService.getNoteById(title);
+    @PostMapping("/updateNote")
+    public String updateNote(@ModelAttribute("mynote") Data mynote) {
+    	dataService.updateNote(mynote);
+    	return "redirect:/" ;
+    }
+    
+    @RequestMapping("/updateNoteForm/{number}")
+    public String updateNoteForm(@PathVariable Integer number, Model model) {
+    	Data mynote = dataService.getNoteById(number);
     	model.addAttribute("mynote",mynote);
+    	//System.out.println(mynote.getNumber());
+    	List<String> types = Arrays.asList("Private","Public","Confidential","Highly Confidential");
+    	model.addAttribute("types", types);
+    	List<String> fields = Arrays.asList("Home","Work","Personal","Knowledge",
+    			"Philosophy","Others");
+    	model.addAttribute("fields", fields);
     	return "update_note";
     }
 		

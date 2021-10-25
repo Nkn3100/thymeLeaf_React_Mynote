@@ -17,8 +17,10 @@ crossorigin="anonymous">
 						<tr>
 							<th>Title</th>
 							<th>Description</th>
+							<th>Type</th>
+							<th>Importance</th>
+							<th>Field</th>
 							<th>Actions</th>
-							
 						
 						</tr>
 					</thead>
@@ -26,11 +28,14 @@ crossorigin="anonymous">
 						<tr th:each="mynote :${notes}">
 							<td th:text="${mynote.title}"></td>
 							<td th:text="${mynote.note}"></td>
+							<td th:text="${mynote.type}"></td>
+							<td th:text="${mynote.category}"></td>
+							<td th:text="${mynote.field}"></td>
 							<td>
-								<a th:href="@{/deleteNote/{title}(title=${mynote.title})}" class="btn btn-primary">
+								<a th:href="@{/deleteNote/{number}(number=${mynote.number})}" class="btn btn-primary">
 								<i>Delete</i>
 								</a> 
-								<a th:href="@{/updateNoteForm/{title}(title=${mynote.title})}" class="btn btn-primary">
+								<a th:href="@{/updateNoteForm/{number}(number=${mynote.number})}" class="btn btn-primary">
 								<i>Update</i>
 								</a>
 							</td>

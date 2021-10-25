@@ -32,9 +32,10 @@ public class DataService {
 	 public List<Data> getNotes(){
 		 return (List<Data>) dataRepository.findAll();
 	 }
-	 public Data getNoteById(String title){
-		 Optional<Data> ext=dataRepository.findById(title);
+	 public Data getNoteById(Integer number){
+		 Optional<Data> ext=dataRepository.findById(number);
 		 Data newData = new Data();
+		 newData.setNumber(ext.get().getNumber());
 		 newData.setTitle(ext.get().getTitle());
 		 newData.setNote(ext.get().getNote());
 		 return newData;
@@ -43,14 +44,30 @@ public class DataService {
 		 Data newData = new Data();
 		 newData.setTitle(data.getTitle());
 		 newData.setNote(data.getNote());
+		 newData.setType(data.getType());
+		 newData.setCategory(data.getCategory());
+		 newData.setField(data.getField());
 		 dataRepository.save(newData);
 		 
 		 return newData.getTitle();
 		 
 	 }
+	 public void updateNote(Data data) {
+		// Data newData = new Data();
+		 Optional<Data> ext=dataRepository.findById(data.getNumber());
+		 ext.get().setNumber(data.getNumber());
+		  ext.get().setNote(data.getNote());
+		  ext.get().setTitle(data.getTitle());
+		  ext.get().setType(data.getType());
+		  ext.get().setCategory(data.getCategory());
+		  ext.get().setField(data.getField());
+		// return newData.getTitle();
+		 
+	 }
+	 
 	 public String editNote(Data data) {
 		 
-		 Optional<Data> ext=dataRepository.findById(data.getTitle());
+		 Optional<Data> ext=dataRepository.findById(data.getNumber());
 		 ext.get().setNote(data.getNote());
 	//	 ext.setName(data.getName());
 	//	 dataRepository.save(ext.get());
@@ -60,14 +77,14 @@ public class DataService {
 		 
 		 
 	 }
-	 public String deleteData(String title) {
-		dataRepository.deleteById(title);
-		return title;
+	 public void deleteData(Integer number) {
+		dataRepository.deleteById(number);
+//		return title;
 		 
 	 }
-	 public String deleteData1(String title) {
+	 public String deleteData1(Integer title) {
 		dataRepository.deleteById(title);
-		return title;
+		return "deleted";
 		 
 	 }
 	

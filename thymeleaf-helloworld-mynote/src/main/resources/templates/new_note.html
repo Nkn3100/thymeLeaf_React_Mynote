@@ -7,20 +7,65 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
 rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" 
 crossorigin="anonymous">
+<style type="text/css">
+    label {
+        display: inline-block;
+        width: 200px;
+        margin: 5px;
+        text-align: left;
+    }
+    input[type=text], select {
+        display: inline-block;
+        width: 200px;
+    }
+    input[type=radio] {
+        margin-left: 45px;
+    }
+ 
+
+
+div {
+  display: table;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+</style>
 </head>
 <body>
-				<div class="conntainer">
+				<div class="container">
 				<h1>Create Note</h1>
 				<form action="#" th:action = "@{/saveNote}" th:object = "${mynote}" method="POST" >
-					<input type="text" th:field = "*{title}"
-					 placeholder="Title" class="form-control mb-4 col-4">
+					<label class="col-1 col-form-label">Title: </label>
+					<textarea cols="35" rows="2" th:field = "*{title}"></textarea>
+					<br/>
+					 <label class="col-1 col-form-label">Note: </label>
+					 <textarea  placeholder="Description" rows="5" cols="35" th:field = "*{note}" ></textarea>
+					 <br/>
+					<label class="col-1 col-form-label">Type: </label>
+					<select th:field = "*{type}">
+					 	<option th:each="p :${types}" th:value="${p}" th:text="${p}"/>
+					</select>
+					<br/>
+
+					<label class="col-1 col-form-label">Category: </label>
 					
-					<input type="text" th:field = "*{note}"
-					 placeholder="Description" class="form-control mb-4 col-4">
-					 
-					 <button type="submit" class="btn btn-info col-2">Save Note</button>
+					<input style="margin: 0;" type="radio" th:field="*{category}" value="Important" />Important
+					<input type="radio" th:field="*{category}" value="Not Important" />Not Important
+				
+					<br/>
+					
+					<label class="col-1 col-form-label">Field: </label>
+					<input type="checkbox" style="margin: 0px; margin-bottom: 20px; padding-right:20px;"
+					            th:each="p : ${fields}"
+					            th:text="${p}"
+					            th:value="${p}"
+					            th:field="*{field}" />		
+					<br/>
+					<button type="submit" class="btn btn-info col-2">Save</button>
 					 
 				</form>
+				</div>
 
 </body>
 </html>
